@@ -95,3 +95,15 @@ CREATE TABLE DetallePedido (
 -- Insertar un detalle de pedido
 INSERT INTO DetallePedido (DetalleID, PedidoID, ProductoID, Cantidad, Subtotal)
 VALUES (1, 1, 2, 1, 20.50);
+
+-- Crea una vista que calcula el total del pedido en tiemp de consulta
+CREATE VIEW VistaPedido AS
+SELECT
+     P.PedidoID,
+	 P.ClienteID,
+	 P.EmpleadoID,
+	 P.FechaPedido,
+	 SUM(D.Subtotal) AS Total
+FROM Pedido AS P
+JOIN DetallePedido AS D ON P.PedidoID = D.PedidoID
+GROUP BY P.PedidoID, p.ClienteID, P.EmpleadoID, P.FechaPedido;
