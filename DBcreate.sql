@@ -107,3 +107,32 @@ SELECT
 FROM Pedido AS P
 JOIN DetallePedido AS D ON P.PedidoID = D.PedidoID
 GROUP BY P.PedidoID, p.ClienteID, P.EmpleadoID, P.FechaPedido;
+
+-- Inserta un nuevo pedido
+INSERT INTO Pedido (ClienteID, EmpleadoID, FechaPedido)
+VALUES (1, 1, GETDATE()); -- Asegúrate de que los IDs de Cliente y Empleado existan
+
+-- Obten el ID del pedido recién insertado
+DECLARE @PedidoID INT;
+SET @PedidoID = SCOPE_IDENTITY();
+
+-- Inserta detalles del pedido (2 productos)
+INSERT INTO DetallePedido (PedidoID, ProductoID, Cantidad, Subtotal)
+VALUES
+    (@PedidoID, 1, 2, 19.98), -- Producto 1, 2 unidades
+    (@PedidoID, 3, 1, 26.50);
+
+-- Recalcula el total del pedido
+DECLARE @TotalPedido DECIMAL(10, 2);
+SELECT @TotalPedido = SUM(Subtotal)
+FROM DetallePedido
+WHERE PedidoID = @PedidoID;
+
+-- Actualiza el total del pedido
+UPDATE Pedido
+SET Total = @TotalPedido
+WHERE PedidoID = @PedidoID;
+
+-- Verifica el resultado
+SELECT * FROM Pedido WHERE PedidoID = @PedidoID;
+SELECT * FROM DetallePedido WHERE PedidoID = @PedidoID;
