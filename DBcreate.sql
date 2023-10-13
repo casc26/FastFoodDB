@@ -73,7 +73,6 @@ CREATE TABLE Pedido (
     ClienteID INT,
     EmpleadoID INT,
     FechaPedido DATETIME,
-    Total DECIMAL(10, 2),
     FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID),
     FOREIGN KEY (EmpleadoID) REFERENCES Empleado(EmpleadoID)
 );
