@@ -62,10 +62,10 @@ VALUES (12122000, 'Ana', 'Gomez', 'Camarero', 1500.00);
 INSERT INTO Empleado(EmpleadoID, Nombre, Apellido, Puesto, Salario)
 VALUES(08112001, 'Juan', 'Apaza', 'Camarero', 1500),
       (01021999, 'Felipe', 'Nuñez', 'Camarero', 1500),
-      (13061992, 'Alexis', 'Colque', 'Chef', 500),
+      (13061992, 'Alexis', 'Colque', 'Chef', 2500),
       (15021980, 'Alberto', 'Apaza', 'Cocinero', 2000),
       (26122000, 'Diego', 'Rosas', 'Ayudante', 1800)
-      (26012005, 'Carlos', 'Soriano', 'Gerente', 500)
+      (26012005, 'Carlos', 'Soriano', 'Gerente', 3500)
 
 -- Crear la tabla Pedido para registrar los pedidos de los clientes
 CREATE TABLE Pedido (
