@@ -99,7 +99,7 @@ VALUES (1, 1, 2, 1, 20.50);
 -- Crea una vista que calcula el total del pedido en tiemp de consulta
 CREATE VIEW VistaPedido AS
 SELECT
-     P.PedidoID,
+         P.PedidoID,
 	 P.ClienteID,
 	 P.EmpleadoID,
 	 P.FechaPedido,
@@ -111,10 +111,6 @@ GROUP BY P.PedidoID, p.ClienteID, P.EmpleadoID, P.FechaPedido;
 -- Inserta un nuevo pedido
 INSERT INTO Pedido (ClienteID, EmpleadoID, FechaPedido)
 VALUES (1, 1, GETDATE()); -- Asegúrate de que los IDs de Cliente y Empleado existan
-
--- Obten el ID del pedido recién insertado
-DECLARE @PedidoID INT;
-SET @PedidoID = SCOPE_IDENTITY();
 
 -- Inserta detalles del pedido (2 productos)
 INSERT INTO DetallePedido (PedidoID, ProductoID, Cantidad, Subtotal)
