@@ -56,7 +56,16 @@ CREATE TABLE Empleado (
 
 -- Insertar un empleado
 INSERT INTO Empleado (EmpleadoID, Nombre, Apellido, Puesto, Salario)
-VALUES (1, 'Ana', 'Gomez', 'Camarero', 1500.00);
+VALUES (12122000, 'Ana', 'Gomez', 'Camarero', 1500.00);
+
+-- Añade más empleados
+INSERT INTO Empleado(EmpleadoID, Nombre, Apellido, Puesto, Salario)
+VALUES(08112001, 'Juan', 'Apaza', 'Camarero', 1500),
+      (01021999, 'Felipe', 'Nuñez', 'Camarero', 1500),
+	  (13061992, 'Alexis', 'Colque', 'Chef', 500),
+	  (15021980, 'Alberto', 'Apaza', 'Cocinero', 2000),
+	  (26122000, 'Diego', 'Rosas', 'Ayudante', 1800)
+      (26012005, 'Carlos', 'Soriano', 'Gerente', 500)
 
 -- Crear la tabla Pedido para registrar los pedidos de los clientes
 CREATE TABLE Pedido (
