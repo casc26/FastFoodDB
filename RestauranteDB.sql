@@ -8,17 +8,9 @@ USE Restaurante;
 CREATE TABLE Tipo (
     TipoID char(5) not null,
     NombreTipo VARCHAR(50) not null,
-	constraint pk_tipo primary key(TipoID)
+	CONSTRAINT pk_tipo PRIMARY KEY(TipoID)
 )
-
---Inserta 3 tipos, Comida, Extras y Bebidas
-INSERT INTO Tipo 
-VALUES
-('T0001','Comida'),('T0002','Extras'),('T0003','Bebidas')
-
---Selecciona todos los datos de la tabla Tipo y los muestra
-SELECT*FROM Tipo
-
+	
 --Crea la tabla Producto, la cual almacenará los diversos platos que tiene el restaurante.
 CREATE TABLE Producto 
 (
@@ -31,15 +23,6 @@ CREATE TABLE Producto
     CONSTRAINT fk_tipo FOREIGN KEY (TipoID) REFERENCES Tipo(TipoID)
 )
 
---Inserta Productos a diferentes categorías
-INSERT INTO Producto (ProductoID, NombreProducto, Descripcion, Precio, TipoID)
-VALUES('P001', 'Pizza Americana Familiar', 'Pepperonni, Pimientos, Aceituna', 23.50, 'T0001'),
-      ('P002', 'Alitas BBQ', 'Alas de pollo en salsa BBQ', 20.50, 'T0002'),
-      ('P003', 'Limonada Frozen', 'Bebida de Limon helada', 10.00, 'T0003')
-
---Selecciona todos los datos de la tabla Producto y los muestra
-SELECT*FROM Producto
-
 -- Crea la tabla Cliente para almacenar información sobre los clientes
 CREATE TABLE Cliente 
 (
@@ -51,15 +34,6 @@ CREATE TABLE Cliente
 	CONSTRAINT pk_cliente PRIMARY KEY(ClienteID)
 );
 
--- Inserta clientes
-INSERT INTO Cliente (ClienteID, Nombre, Apellido, Direccion, Telefono)
-VALUES 
-('C001', 'Juan', 'Perez', 'Arequipa', '987654321'),
-('C002', 'Pepito', 'Quispe', 'Lima', '933447787')
-
---Selecciona todos los datos de la tabla Cliente y los muestra
-SELECT*FROM Cliente
-
 -- Crea la tabla Empleado para almacenar información sobre los empleados
 CREATE TABLE Empleado 
 (
@@ -70,18 +44,6 @@ CREATE TABLE Empleado
     Salario DECIMAL(10, 2)NOT NULL,
 	CONSTRAINT pk_empleado PRIMARY KEY(EmpleadoID) 
 );
-
--- Añade empleados
-INSERT INTO Empleado(EmpleadoID, Nombre, Apellido, Puesto, Salario)
-VALUES('E081', 'Juan', 'Apaza', 'Camarero', 1500),
-      ('E010', 'Felipe', 'Nuñez', 'Camarero', 1500),
-      ('E130', 'Alexis', 'Colque', 'Chef', 2500),
-      ('E150', 'Alberto', 'Apaza', 'Cocinero', 2000),
-      ('E261', 'Diego', 'Rosas', 'Ayudante', 1800),
-      ('E260', 'Carlos', 'Soriano', 'Gerente', 3500)
-
---Selecciona todos los datos de la Empleado y los muestra
-SELECT*FROM Empleado
 
 --Crea la tabla Pedido para agregar los datos para un posible comprobante
 CREATE TABLE Pedido (
@@ -96,19 +58,6 @@ CREATE TABLE Pedido (
     CONSTRAINT fk_empleado FOREIGN KEY (EmpleadoID) REFERENCES Empleado(EmpleadoID)
 );
 
---Añade a la tabla Pedido, la columna Total
-ALTER TABLE Pedido
-ADD Total DECIMAL(6,2) NOT NULL
-	
-
-SELECT*FROM Pedido
-SELECT*FROM Empleado
-SELECT*FROM Cliente
-	
--- Insertar un pedido
-INSERT INTO Pedido (PedidoID, ClienteID, EmpleadoID, FechaPedido, Total)
-VALUES ('00001', 'C001', 'E010', '08/16/2023 12:00', 20.50);
-
 --Crea la tabla DetallePedido donde se almacenarán el Producto a consumir, la cantidad y el subtotal
 CREATE TABLE DetallePedido (
     DetalleID char(4)NOT NULL,
@@ -120,6 +69,44 @@ CREATE TABLE DetallePedido (
     CONSTRAINT fk_pedido  FOREIGN KEY (PedidoID) REFERENCES Pedido(PedidoID),
     CONSTRAINT fk_producto FOREIGN KEY (ProductoID) REFERENCES Producto(ProductoID)
 );
+
+
+--Inserta 3 tipos, Comida, Extras y Bebidas
+INSERT INTO Tipo 
+VALUES
+('T0001','Comida'),('T0002','Extras'),('T0003','Bebidas')
+
+--Inserta Productos a diferentes categorías
+INSERT INTO Producto (ProductoID, NombreProducto, Descripcion, Precio, TipoID)
+VALUES('P001', 'Pizza Americana Familiar', 'Pepperonni, Pimientos, Aceituna', 23.50, 'T0001'),
+      ('P002', 'Alitas BBQ', 'Alas de pollo en salsa BBQ', 20.50, 'T0002'),
+      ('P003', 'Limonada Frozen', 'Bebida de Limon helada', 10.00, 'T0003')
+
+-- Inserta clientes
+INSERT INTO Cliente (ClienteID, Nombre, Apellido, Direccion, Telefono)
+VALUES 
+('C001', 'Juan', 'Perez', 'Arequipa', '987654321'),
+('C002', 'Pepito', 'Quispe', 'Lima', '933447787')
+
+-- Añade empleados
+INSERT INTO Empleado(EmpleadoID, Nombre, Apellido, Puesto, Salario)
+VALUES('E081', 'Juan', 'Apaza', 'Camarero', 1500),
+      ('E010', 'Felipe', 'Nuñez', 'Camarero', 1500),
+      ('E130', 'Alexis', 'Colque', 'Chef', 2500),
+      ('E150', 'Alberto', 'Apaza', 'Cocinero', 2000),
+      ('E261', 'Diego', 'Rosas', 'Ayudante', 1800),
+      ('E260', 'Carlos', 'Soriano', 'Gerente', 3500)
+
+--Añade a la tabla Pedido, la columna Total
+ALTER TABLE Pedido
+ADD Total DECIMAL(6,2) NOT NULL
+SELECT*FROM Pedido
+SELECT*FROM Empleado
+SELECT*FROM Cliente
+	
+-- Insertar un pedido
+INSERT INTO Pedido (PedidoID, ClienteID, EmpleadoID, FechaPedido, Total)
+VALUES ('00001', 'C001', 'E010', '08/16/2023 12:00', 20.50);
 
 -- Inserta un detalle de pedido
 INSERT INTO DetallePedido (DetalleID, PedidoID, ProductoID, Cantidad, Subtotal)
