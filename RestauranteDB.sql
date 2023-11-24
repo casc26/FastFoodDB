@@ -119,3 +119,14 @@ SELECT*FROM DetallePedido
 UPDATE DetallePedido
 SET Subtotal = 41.00
 WHERE Subtotal = 20.50
+
+
+-- PRACTICA CALIFICADA 3
+
+--Selecciona los 5 primeros registros en la tabla empledos, haciendo un ahorro de recursos en el sistema.
+SELECT TOP 5 * Empleado;
+
+--Selecciona el top 3 en la tabla Empleados que registren como Camarero
+SELECT TOP 3 *
+FROM Empleados
+WHERE Puesto = 'Camarero';
